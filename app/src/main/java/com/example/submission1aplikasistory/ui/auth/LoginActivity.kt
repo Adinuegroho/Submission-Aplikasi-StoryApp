@@ -54,8 +54,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             binding.btnSignUp -> startActivity(Intent(this, RegisterActivity::class.java))
             binding.btnLogin -> {
                 if (canLogin()) {
-                    val email = binding.edtEmail.text.toString()
-                    val password = binding.edtPassword.text.toString()
+                    val email = binding.inputEmail.text.toString()
+                    val password = binding.inputPassword.text.toString()
 
                     closeKeyboard(this)
                     authViewModel.login(email, password)
@@ -67,17 +67,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun playAnimation() {
-        val logo = ObjectAnimator.ofFloat(binding.imgLogo, View.ALPHA, 1f).setDuration(500)
         val title = ObjectAnimator.ofFloat(binding.tvTitle, View.ALPHA, 1f).setDuration(500)
         val subTitle = ObjectAnimator.ofFloat(binding.tvSubTitle, View.ALPHA, 1f).setDuration(500)
-        val edtEmail = ObjectAnimator.ofFloat(binding.inputEmail, View.ALPHA, 1f).setDuration(500)
-        val edtPassword = ObjectAnimator.ofFloat(binding.inputPassword, View.ALPHA, 1f).setDuration(500)
-        val login = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(500)
-        val signup = ObjectAnimator.ofFloat(binding.btnSignUp, View.ALPHA, 11f).setDuration(500)
 
         AnimatorSet().apply {
-            playSequentially(logo, title, subTitle, edtEmail, edtPassword, login, signup)
-                start()
+            playSequentially(title, subTitle)
+            start()
         }
     }
 
@@ -118,8 +113,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun canLogin() =
-        binding.edtEmail.error == null && binding.edtPassword.error == null &&
-                !binding.edtEmail.text.isNullOrEmpty() && !binding.edtPassword.text.isNullOrEmpty()
+        binding.inputEmail.error == null && binding.inputPassword.error == null &&
+                !binding.inputEmail.text.isNullOrEmpty() && !binding.inputPassword.text.isNullOrEmpty()
 
     private fun showLoading(isLoading: Boolean) {
         binding.isLoading.visibility = if (isLoading) View.VISIBLE else View.GONE

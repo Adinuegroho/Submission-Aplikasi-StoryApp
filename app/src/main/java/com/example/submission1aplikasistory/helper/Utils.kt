@@ -8,10 +8,12 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.Environment
+import android.util.Patterns
 import com.example.submission1aplikasistory.R
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
 
 private const val FILENAME_FORMAT = "dd-MMM-yyyy"
 
@@ -94,4 +96,9 @@ val timeStamp: String = SimpleDateFormat(
     FILENAME_FORMAT,
     Locale.US
 ).format(System.currentTimeMillis())
+
+fun String.isValidEmail(): Boolean {
+    val pattern: Pattern = Patterns.EMAIL_ADDRESS
+    return pattern.matcher(this).matches()
+}
 

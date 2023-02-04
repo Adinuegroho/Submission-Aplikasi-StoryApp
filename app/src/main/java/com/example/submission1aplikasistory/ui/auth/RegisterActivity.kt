@@ -77,11 +77,11 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         when (v) {
             binding.imgBackHome -> finish()
             binding.btnRegister -> {
-                val name = binding.edtUsername.text.toString()
-                val email = binding.edtEmail.text.toString()
-                val password = binding.edtPassword.text.toString()
+                val name = binding.inputUsername.text.toString()
+                val email = binding.inputEmail.text.toString()
+                val password = binding.inputPassword.text.toString()
 
-                if (binding.edtEmail.error == null && binding.edtPassword.error == null) {
+                if (binding.inputEmail.error == null && binding.inputPassword.error == null) {
                     closeKeyboard(this)
                     authViewModel.register(name, email, password)
                 }
@@ -90,16 +90,10 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun playAnimation() {
-        val logo = ObjectAnimator.ofFloat(binding.imgLogo, View.ALPHA, 1f).setDuration(500)
         val title = ObjectAnimator.ofFloat(binding.tvTitleReg, View.ALPHA, 1f).setDuration(500)
-        val edtUsername = ObjectAnimator.ofFloat(binding.inputUsername, View.ALPHA, 1f).setDuration(500)
-        val edtEmail = ObjectAnimator.ofFloat(binding.inputEmail, View.ALPHA, 1f).setDuration(500)
-        val edtPassword = ObjectAnimator.ofFloat(binding.inputPassword, View.ALPHA, 1f).setDuration(500)
-        val tvKet= ObjectAnimator.ofFloat(binding.tvKet, View.ALPHA, 1f).setDuration(500)
-        val signup = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 11f).setDuration(500)
 
         AnimatorSet().apply {
-            playSequentially(logo, title, edtUsername, edtEmail, edtPassword, signup, tvKet)
+            playSequentially(title)
             start()
         }
     }

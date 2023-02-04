@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -34,7 +35,6 @@
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:alpha="0"
         android:layout_width="94dp"
         android:layout_height="94dp"
         android:src="@drawable/logo"
@@ -62,80 +62,46 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.1"/>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <com.example.submission1aplikasistory.ui.customview.MyEditText
         android:id="@+id/inputUsername"
-        android:alpha="0"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="42dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleReg"
-        app:startIconDrawable="@drawable/ic_person">
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="32dp"
+        custom:username="true"
+        android:drawableStart="@drawable/ic_person"
+        android:hint="@string/username"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/username"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
+    <com.example.submission1aplikasistory.ui.customview.MyEditText
         android:id="@+id/inputEmail"
-        android:alpha="0"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputUsername"
-        app:startIconDrawable="@drawable/ic_email">
+        app:layout_constraintStart_toStartOf="@id/inputUsername"
+        app:layout_constraintEnd_toEndOf="@id/inputUsername"
+        android:layout_marginTop="24dp"
+        custom:email="true"
+        android:hint="@string/email"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/email"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
+    <com.example.submission1aplikasistory.ui.customview.MyEditText
         android:id="@+id/inputPassword"
-        android:alpha="0"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputEmail"
-        app:startIconDrawable="@drawable/ic_lock"
-        app:passwordToggleEnabled="true">
+        app:layout_constraintTop_toBottomOf="@id/inputEmail"
+        app:layout_constraintStart_toStartOf="@id/inputUsername"
+        app:layout_constraintEnd_toEndOf="@id/inputUsername"
+        android:inputType="textPassword"
+        android:layout_marginTop="24dp"
+        custom:password="true"
+        android:hint="@string/password"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/password"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnRegister"
-        android:alpha="0"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="32dp"
@@ -150,7 +116,6 @@
 
     <TextView
         android:id="@+id/tvKet"
-        android:alpha="0"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/policy"

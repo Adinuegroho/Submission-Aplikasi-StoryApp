@@ -39,4 +39,6 @@
     <string name="logo">logo</string>
     <string name="detail_story">Detail Story</string>
     <string name="imagestory">imagestory</string>
+    <string name="invalid_email">Format Email Salah</string>
+    <string name="invalid_password">Minimal 8 Karakter</string>
 </resources>

@@ -28,6 +28,7 @@ class CameraActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         _binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
