@@ -67,6 +67,38 @@
             app:layout_constraintStart_toStartOf="@id/imgStoryAdd"
             app:layout_constraintTop_toBottomOf="@+id/btnCameraAdd"/>
 
+        <TextView
+            android:id="@+id/tvCurrentLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:padding="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@id/edtDesciptionAdd"
+            app:layout_constraintStart_toStartOf="@id/imgStoryAdd"
+            app:layout_constraintEnd_toEndOf="@id/imgStoryAdd"
+            android:text="@string/current_location"
+            app:drawableStartCompat="@drawable/ic_location"/>
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvCurrentLocation"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:text="@string/share_location"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/imgStoryAdd"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/edtDesciptionAdd" />-->
+
+<!--        <com.google.android.material.switchmaterial.SwitchMaterial-->
+<!--            android:id="@+id/switch_location"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/tvCurrentLocation"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/imgStoryAdd"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/tvCurrentLocation" />-->
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnUpload"
             android:layout_width="0dp"
@@ -75,7 +107,7 @@
             android:text="@string/upload"
             app:layout_constraintStart_toStartOf="@id/imgStoryAdd"
             app:layout_constraintEnd_toEndOf="@id/imgStoryAdd"
-            app:layout_constraintTop_toBottomOf="@id/edtDesciptionAdd"
+            app:layout_constraintTop_toBottomOf="@id/tvCurrentLocation"
             android:background="@color/blue_grey_light"
             android:textColor="@color/black"
             android:textStyle="bold"/>

@@ -6,9 +6,11 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.location.Geocoder
 import android.net.Uri
 import android.os.Environment
 import android.util.Patterns
+import android.widget.Button
 import com.example.submission1aplikasistory.R
 import java.io.*
 import java.text.SimpleDateFormat
@@ -43,6 +45,43 @@ fun rotateBitmap(bitmap: Bitmap, isBackCamera: Boolean = false): Bitmap {
             true
         )
     }
+}
+
+//fun notifyGivePermission(context: Context, message: String) {
+//    val dialog = dialogInfoBuilder(context, message)
+//    val button = dialog.findViewById<Button>(R.id.button_ok)
+//    button.setOnClickListener {
+//        dialog.dismiss()
+//        openSettingPermission(context)
+//    }
+//    dialog.setCancelable(false)
+//    dialog.show()
+//}
+
+fun parseAddressLocation(
+    context: Context,
+    lat: Double,
+    lon: Double
+): String {
+    var address = ""
+    try {
+        val geocoder = Geocoder(context)
+        val geoLocation =
+            geocoder.getFromLocation(lat, lon, 1)
+        if (geoLocation != null) {
+            address = if (geoLocation.size > 0) {
+                val location = geoLocation[0]
+                val fullAddress = location.getAddressLine(0)
+                StringBuilder("📌 ")
+                    .append(fullAddress).toString()
+            } else {
+                "📌 Location Unknown"
+            }
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return address
 }
 
 fun createFile(application: Application): File {

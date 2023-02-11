@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.submission1aplikasistory.ui.addstories.AddStoriesViewModel
 import com.example.submission1aplikasistory.ui.auth.AuthViewModel
 import com.example.submission1aplikasistory.ui.main.MainViewModel
+import com.example.submission1aplikasistory.ui.map.MapsViewModel
 
 class ViewModelFactory(private val pref: UserPreferences): ViewModelProvider.NewInstanceFactory() {
 
@@ -21,6 +22,7 @@ class ViewModelFactory(private val pref: UserPreferences): ViewModelProvider.New
             AuthViewModel::class.java -> AuthViewModel(pref) as T
             MainViewModel::class.java -> MainViewModel(pref, mApplication) as T
             AddStoriesViewModel::class.java -> AddStoriesViewModel(pref) as T
+            MapsViewModel::class.java -> MapsViewModel(pref, mApplication) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }

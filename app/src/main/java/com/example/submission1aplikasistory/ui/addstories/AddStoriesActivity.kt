@@ -10,10 +10,13 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.example.submission1aplikasistory.databinding.ActivityAddStoriesBinding
 import java.io.File
 import android.Manifest
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.net.Uri
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -25,12 +28,15 @@ import com.example.submission1aplikasistory.R
 import com.example.submission1aplikasistory.data.Resource
 import com.example.submission1aplikasistory.helper.*
 import com.example.submission1aplikasistory.ui.camera.CameraActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
@@ -42,6 +48,10 @@ class AddStoriesActivity : AppCompatActivity(), View.OnClickListener {
     private var imgScaleZoom = true
     private var getFile: File? = null
     private lateinit var addStoriesViewModel: AddStoriesViewModel
+    private var fusedLocationClient: FusedLocationProviderClient? = null
+    private var location: Location? = null
+    private var positionLat: RequestBody? = null
+    private var positionLon: RequestBody? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +59,9 @@ class AddStoriesActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = resources.getString(R.string.addStory)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        binding.tvCurrentLocation.setOnClickListener{getMyLocation()}
 
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
@@ -60,6 +73,7 @@ class AddStoriesActivity : AppCompatActivity(), View.OnClickListener {
 
         setupViewModel()
         setupView()
+
     }
 
     override fun onDestroy() {
@@ -77,8 +91,54 @@ class AddStoriesActivity : AppCompatActivity(), View.OnClickListener {
                 imgScaleZoom = !imgScaleZoom
                 binding.imgStoryAdd.scaleType = if (imgScaleZoom) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
             }
+//            binding.tvCurrentLocation -> {
+//                binding.tvCurrentLocation.text = getMyLocation().toString()
+//            }
+//                Log.d(TAG, "location: ${location?.latitude}, ${location?.longitude}")
+//                binding.tvCurrentLocation.text = location?.let {
+//                    parseAddressLocation(
+//                        this,
+//                        it.latitude,
+//                        location!!.longitude
+//                    )
+//                }
+
+
         }
     }
+
+    private fun getMyLocation() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationClient?.lastLocation?.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    this.location = location
+                    binding.tvCurrentLocation.text = parseAddressLocation(
+                        this,
+                        location.latitude,
+                        location.longitude
+                    )
+                    Log.d(TAG, "location: ${location.latitude}, ${location.longitude}")
+                } else {
+                    Toast.makeText(this, getString(R.string.toast_activate_location), Toast.LENGTH_LONG).show()
+                }
+            }
+        } else {
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                getMyLocation()
+            }
+        }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -122,9 +182,16 @@ class AddStoriesActivity : AppCompatActivity(), View.OnClickListener {
                 file.name,
                 requestImageFile
             )
+//            if (location != null) {
+//            positionLat = location?.latitude?.toString()?.toRequestBody("text/plain".toMediaType())!!
+                val lat = location?.latitude?.toString()?.toRequestBody(resources.getString(R.string.text_plain).toMediaType())!!
+                val lon = location?.longitude?.toString()?.toRequestBody(resources.getString(R.string.text_plain).toMediaType())!!
+//            }
 
+//            Log.i(TAG,"position : $positionLon & $positionLon" )
+//            Log.d(TAG,"position : $positionLon & $positionLon" )
             CoroutineScope(Dispatchers.IO).launch {
-                addStoriesViewModel.upload(imageMultipart, description, asGuest)
+                addStoriesViewModel.upload(imageMultipart, description, asGuest, lat, lon)
             }
 
         } else {

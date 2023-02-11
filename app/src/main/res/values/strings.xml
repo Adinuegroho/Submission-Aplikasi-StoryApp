@@ -41,4 +41,10 @@
     <string name="imagestory">imagestory</string>
     <string name="invalid_email">Format Email Salah</string>
     <string name="invalid_password">Minimal 8 Karakter</string>
+    <string name="maps">Maps</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="current_location">Add current location to this story</string>
+    <string name="toast_activate_location">Please activate location services</string>
+    <string name="format_location">%1$f, %2$f</string>
+    <string name="share_location">Share Location</string>
 </resources>

@@ -26,6 +26,7 @@ import com.example.submission1aplikasistory.ui.addstories.AddStoriesActivity
 import com.example.submission1aplikasistory.ui.auth.AuthViewModel
 import com.example.submission1aplikasistory.ui.auth.LoginActivity
 import com.example.submission1aplikasistory.ui.detail.DetailActivity
+import com.example.submission1aplikasistory.ui.map.MapsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -83,6 +84,10 @@ class MainActivity : AppCompatActivity(), MainAdapter.StoriesCallback {
                 authViewModel.logout()
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java))
                 finishAffinity()
+                true
+            }
+            R.id.maps -> {
+                startActivity(Intent(this, MapsActivity::class.java))
                 true
             }
             else -> false

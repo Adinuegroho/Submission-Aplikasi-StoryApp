@@ -24,16 +24,20 @@ class AddStoriesViewModel(private val preferences: UserPreferences): ViewModel()
     suspend fun upload(
         imageMultipart: MultipartBody.Part,
         descrition: RequestBody,
-        asGuest: Boolean = false
-    ) {
+        asGuest: Boolean = false,
+        lat: RequestBody?,
+        lon: RequestBody?,
+        ) {
         _uploadInfo.postValue(Resource.Loading())
         val client = if (asGuest) ApiConfig.apiInstance.addGuestStories(
             imageMultipart,
-            descrition
+            descrition,
         ) else ApiConfig.apiInstance.addStories(
             token = "Bearer ${preferences.getUserKey().first()}",
             imageMultipart,
-            descrition
+            descrition,
+            lat,
+            lon,
         )
 
         client.enqueue(object : Callback<BaseResponse> {
