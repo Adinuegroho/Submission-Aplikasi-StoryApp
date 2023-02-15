@@ -23,6 +23,13 @@ interface ApiService {
         @Query("page") page: Int? = null,
         @Query("size") size: Int? = null,
         @Query("location") location: Int? = null
+    ): StoriesResponse
+
+    @GET("stories?location=1")
+    fun getStoriesLocation(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int? = null,
+        @Query("size") size: Int? = null,
     ): Call<StoriesResponse>
 
     @Multipart

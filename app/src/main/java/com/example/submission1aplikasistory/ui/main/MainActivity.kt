@@ -22,6 +22,7 @@ import com.example.submission1aplikasistory.databinding.ActivityMainBinding
 import com.example.submission1aplikasistory.databinding.ItemStoryBinding
 import com.example.submission1aplikasistory.helper.UserPreferences
 import com.example.submission1aplikasistory.helper.ViewModelFactory
+import com.example.submission1aplikasistory.helper.ViewModelStoryFactory
 import com.example.submission1aplikasistory.ui.addstories.AddStoriesActivity
 import com.example.submission1aplikasistory.ui.auth.AuthViewModel
 import com.example.submission1aplikasistory.ui.auth.LoginActivity
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.StoriesCallback {
         viewModelFactory.setApplication(application)
 
         authViewModel = ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
-        mainViewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+        mainViewModel = ViewModelProvider(this, ViewModelStoryFactory(this))[MainViewModel::class.java]
 
         mainViewModel.stories.observe(this) {
             when (it) {

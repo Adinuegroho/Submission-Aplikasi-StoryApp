@@ -40,7 +40,7 @@ class MapsViewModel(private val preferences: UserPreferences, application: Appli
 
     suspend fun getStories() {
         _stories.postValue(Resource.Loading())
-        val client = ApiConfig.apiInstance.getStories(token = "Bearer ${preferences.getUserKey().first()}", location = 1)
+        val client = ApiConfig.apiInstance.getStoriesLocation(token = "Bearer ${preferences.getUserKey().first()}")
 
         client.enqueue(object : Callback<StoriesResponse> {
             override fun onResponse(

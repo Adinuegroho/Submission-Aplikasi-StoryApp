@@ -1,5 +1,7 @@
-package com.example.submission1aplikasistory.data
+package com.example.submission1aplikasistory.data.paging
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -49,7 +51,9 @@ class StoriesRemoteMediator(
                         storiesResponItem.lat,
                     )
 
+                    Log.d(TAG, "story : ${story.name}")
                 database.storiesDao().insert(story)
+
                 }
 
             }

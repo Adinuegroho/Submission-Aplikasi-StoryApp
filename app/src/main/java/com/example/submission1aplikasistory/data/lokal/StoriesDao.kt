@@ -18,6 +18,6 @@ interface StoriesDao {
     suspend fun deleteAll(): Int
 
     @Query("SELECT * FROM stories")
-    fun findAll(): Cursor
-//    fun findAll(): PagingSource<Int, Stories>
+//    fun findAll(): Cursor
+    fun findAll(): PagingSource<Int, Stories>
 }
