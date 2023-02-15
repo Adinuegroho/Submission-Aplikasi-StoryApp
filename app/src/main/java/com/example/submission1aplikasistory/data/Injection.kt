@@ -15,8 +15,7 @@ object Injection {
     fun provideRepository(context: Context): StoriesRepository {
         val database = StoriesDatabase.getDatabase(context)
         val apiService = ApiConfig.apiInstance
-        val token: String = ""
         val pref = UserPreferences.getInstance(context.dataStore)
-        return StoriesRepository(database!!, apiService, token)
+        return StoriesRepository(database!!, apiService, pref)
     }
 }

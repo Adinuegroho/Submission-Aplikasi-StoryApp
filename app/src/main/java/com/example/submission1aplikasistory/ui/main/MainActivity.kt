@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.StoriesCallback {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_key")
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
-    private val mainAdapter = MainAdapter(this)
+    private val mainAdapter = MainAdapter()
     private lateinit var mainViewModel: MainViewModel
     private lateinit var authViewModel: AuthViewModel
 
@@ -103,18 +103,19 @@ class MainActivity : AppCompatActivity(), MainAdapter.StoriesCallback {
         authViewModel = ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
         mainViewModel = ViewModelProvider(this, ViewModelStoryFactory(this))[MainViewModel::class.java]
 
-        mainViewModel.stories.observe(this) {
-            when (it) {
-                is Resource.Success -> {
-                    it.data?.let { stories -> mainAdapter.setData(stories) }
-                    showLoading(false)
-                }
-                is Resource.Loading -> showLoading(true)
-                is Resource.Error -> {
-                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                    showLoading(false)
-                }
-            }
+        mainViewModel.getStories().observe(this) {
+            mainAdapter.submitData(lifecycle, it)
+//            when (it) {
+//                is Resource.Success -> {
+//                    it.data?.let { stories -> mainAdapter.setData(stories) }
+//                    showLoading(false)
+//                }
+//                is Resource.Loading -> showLoading(true)
+//                is Resource.Error -> {
+//                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+//                    showLoading(false)
+//                }
+//            }
         }
 
         fetchData()

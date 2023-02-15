@@ -7,13 +7,14 @@ import androidx.room.RoomDatabase
 import com.example.submission1aplikasistory.data.model.Stories
 
 @Database(
-    entities = [Stories::class],
-    version = 1 ,
+    entities = [Stories::class, RemoteKeys::class],
+    version = 2,
     exportSchema = false
 )
 abstract class StoriesDatabase: RoomDatabase() {
 
     abstract fun storiesDao(): StoriesDao
+    abstract fun remoteKeysDao(): RemoteKeysDao
 
     companion object {
         @Volatile
@@ -34,6 +35,7 @@ abstract class StoriesDatabase: RoomDatabase() {
                 }
             }
             return INSTANCE
+
 //            return INSTANCE ?: synchronized(this) {
 //                INSTANCE ?: Room.databaseBuilder(
 //                    context.applicationContext,

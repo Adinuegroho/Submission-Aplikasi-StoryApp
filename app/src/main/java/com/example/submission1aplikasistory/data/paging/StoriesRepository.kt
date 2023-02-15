@@ -12,11 +12,9 @@ import kotlinx.coroutines.flow.first
 class StoriesRepository(
     private val storiesDatabase: StoriesDatabase,
     private val apiService: ApiService,
-//    private val userPreferences: UserPreferences
-    private val token: String
+    private val token: UserPreferences
 ) {
-    suspend fun getStories(): LiveData<PagingData<Stories>> {
-//        val token = "Bearer ${userPreferences.getUserKey().first()}"
+    fun getStories(): LiveData<PagingData<Stories>> {
 
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
