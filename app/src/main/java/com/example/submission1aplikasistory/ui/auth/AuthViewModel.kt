@@ -1,6 +1,6 @@
 package com.example.submission1aplikasistory.ui.auth
 
-import android.util.Log
+
 import androidx.lifecycle.*
 import com.example.submission1aplikasistory.data.Resource
 import com.example.submission1aplikasistory.data.api.ApiConfig
@@ -41,10 +41,6 @@ class AuthViewModel(private val preferences: UserPreferences): ViewModel() {
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                Log.e(
-                    AuthViewModel::class.java.simpleName,
-                    "onFailure login"
-                )
                 _authInfo.postValue(Resource.Error(t.message))
             }
         })
@@ -69,10 +65,6 @@ class AuthViewModel(private val preferences: UserPreferences): ViewModel() {
             }
 
             override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
-                Log.e(
-                    AuthViewModel::class.java.simpleName,
-                    "onFailure register"
-                )
                 _authInfo.postValue(Resource.Error(t.message))
             }
         })

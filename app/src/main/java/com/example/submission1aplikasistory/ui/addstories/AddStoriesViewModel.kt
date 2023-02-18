@@ -54,10 +54,6 @@ class AddStoriesViewModel(private val preferences: UserPreferences): ViewModel()
             }
 
             override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
-                Log.e(
-                    AddStoriesViewModel::class.java.simpleName,
-                    "onFailure upload"
-                )
                 _uploadInfo.postValue(Resource.Error(t.message))
             }
         })

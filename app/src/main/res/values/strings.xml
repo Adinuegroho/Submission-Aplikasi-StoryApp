@@ -21,6 +21,7 @@
     <string name="switch_camera">Switch Camera</string>
     <string name="backHome">Back</string>
     <string name="input_picture">Please input picture first</string>
+    <string name="input_location">Please input location</string>
     <string name="not_geting_permission">Not getting permission</string>
     <string name="user_name_story">User name story</string>
     <string name="logout">Logout</string>
@@ -47,4 +48,6 @@
     <string name="toast_activate_location">Please activate location services</string>
     <string name="format_location">%1$f, %2$f</string>
     <string name="share_location">Share Location</string>
+    <string name="retry">Retry</string>
+    <string name="refresh">Refresh</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.submission1aplikasistory.data.lokal
 
-import android.database.Cursor
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -18,6 +17,5 @@ interface StoriesDao {
     suspend fun deleteAll(): Int
 
     @Query("SELECT * FROM stories")
-//    fun findAll(): Cursor
     fun findAll(): PagingSource<Int, Stories>
 }

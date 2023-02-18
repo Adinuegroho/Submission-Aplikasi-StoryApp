@@ -10,7 +10,6 @@ import android.location.Geocoder
 import android.net.Uri
 import android.os.Environment
 import android.util.Patterns
-import android.widget.Button
 import com.example.submission1aplikasistory.R
 import java.io.*
 import java.text.SimpleDateFormat
@@ -46,17 +45,6 @@ fun rotateBitmap(bitmap: Bitmap, isBackCamera: Boolean = false): Bitmap {
         )
     }
 }
-
-//fun notifyGivePermission(context: Context, message: String) {
-//    val dialog = dialogInfoBuilder(context, message)
-//    val button = dialog.findViewById<Button>(R.id.button_ok)
-//    button.setOnClickListener {
-//        dialog.dismiss()
-//        openSettingPermission(context)
-//    }
-//    dialog.setCancelable(false)
-//    dialog.show()
-//}
 
 fun parseAddressLocation(
     context: Context,

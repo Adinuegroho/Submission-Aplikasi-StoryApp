@@ -1,7 +1,5 @@
 package com.example.submission1aplikasistory.data.paging
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -68,20 +66,17 @@ class StoriesRemoteMediator(
                     RemoteKeys(id = it.id, prevKey = prevKey, nextKey = nextKey)
                 }
                 database.remoteKeysDao().insertALl(keys)
-                responseData.listStory.forEach { storiesResponItem ->
+                responseData.listStory.forEach { storiesRespon ->
                     val story = Stories(
-                        storiesResponItem.id,
-                        storiesResponItem.name,
-                        storiesResponItem.photoUrl,
-                        storiesResponItem.createdAt,
-                        storiesResponItem.description,
-                        storiesResponItem.lon,
-                        storiesResponItem.lat,
+                        storiesRespon.id,
+                        storiesRespon.name,
+                        storiesRespon.photoUrl,
+                        storiesRespon.createdAt,
+                        storiesRespon.description,
+                        storiesRespon.lon,
+                        storiesRespon.lat
                     )
-
-                    Log.d(TAG, "story : ${story.name}")
-                database.storiesDao().insert(story)
-
+                    database.storiesDao().insert(story)
                 }
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)

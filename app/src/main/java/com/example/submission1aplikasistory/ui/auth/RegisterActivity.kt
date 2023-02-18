@@ -56,6 +56,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 is Resource.Loading -> showLoading(true)
                 is Resource.Error -> {
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    showLoading(false)
                 }
             }
         }
@@ -84,6 +85,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 if (binding.inputEmail.error == null && binding.inputPassword.error == null) {
                     closeKeyboard(this)
                     authViewModel.register(name, email, password)
+                } else {
+                    Toast.makeText(this, "Check Your Input", Toast.LENGTH_SHORT).show()
                 }
             }
         }

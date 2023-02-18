@@ -21,30 +21,16 @@ abstract class StoriesDatabase: RoomDatabase() {
         private var INSTANCE: StoriesDatabase? = null
 
         @JvmStatic
-        fun getDatabase(context: Context): StoriesDatabase? {
-            if (INSTANCE == null) {
-                synchronized(StoriesDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        StoriesDatabase::class.java,
-                        "stories_database"
-                    )
-                        .fallbackToDestructiveMigration()
-                        .build()
-                        .also { INSTANCE = it }
-                }
+        fun getDatabase(context: Context): StoriesDatabase {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: Room.databaseBuilder(
+                    context.applicationContext,
+                    StoriesDatabase::class.java, "stories_database"
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+                    .also { INSTANCE = it }
             }
-            return INSTANCE
-
-//            return INSTANCE ?: synchronized(this) {
-//                INSTANCE ?: Room.databaseBuilder(
-//                    context.applicationContext,
-//                    StoriesDatabase::class.java, "quote_database"
-//                )
-//                    .fallbackToDestructiveMigration()
-//                    .build()
-//                    .also { INSTANCE = it }
-//            }
         }
     }
 }

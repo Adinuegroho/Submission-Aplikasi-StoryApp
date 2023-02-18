@@ -1,47 +1,36 @@
 package com.example.submission1aplikasistory.ui.map
 
 import android.Manifest
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.example.submission1aplikasistory.R
 import com.example.submission1aplikasistory.data.Resource
-import com.example.submission1aplikasistory.data.model.Stories
-import com.example.submission1aplikasistory.data.model.response.BaseResponse
 import com.example.submission1aplikasistory.databinding.ActivityMapsBinding
 import com.example.submission1aplikasistory.helper.UserPreferences
 import com.example.submission1aplikasistory.helper.ViewModelFactory
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.util.*
-import kotlin.math.log
+
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -78,6 +67,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapsViewModel.stories.observe(this) {
             when(it) {
                 is Resource.Success -> {
+                    showLoading(false)
                     it.data?.forEach { stories ->
                         mMap.addMarker(
                             MarkerOptions().position(
@@ -97,7 +87,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         )?. tag = stories
                     }
                 }
-                is Resource.Loading -> showLoading(false)
+                is Resource.Loading -> showLoading(true)
                 is Resource.Error -> {
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                     showLoading(false)
@@ -113,7 +103,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val list = geocoder.getFromLocation(lat, lon, 1)
             if (list != null && list.size != 0) {
                 addressName = description
-                Log.d(TAG, "getAddressName: $addressName")
             }
         } catch (e: IOException) {
             e.printStackTrace()

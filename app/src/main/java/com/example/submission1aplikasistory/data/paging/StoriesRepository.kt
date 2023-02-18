@@ -2,12 +2,11 @@ package com.example.submission1aplikasistory.data.paging
 
 import androidx.lifecycle.LiveData
 import androidx.paging.*
-import com.example.submission1aplikasistory.data.api.ApiConfig
 import com.example.submission1aplikasistory.data.api.ApiService
 import com.example.submission1aplikasistory.data.lokal.StoriesDatabase
 import com.example.submission1aplikasistory.data.model.Stories
 import com.example.submission1aplikasistory.helper.UserPreferences
-import kotlinx.coroutines.flow.first
+
 
 class StoriesRepository(
     private val storiesDatabase: StoriesDatabase,

@@ -19,7 +19,6 @@ class ViewModelFactory(private val pref: UserPreferences): ViewModelProvider.New
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
             AuthViewModel::class.java -> AuthViewModel(pref) as T
-//            MainViewModel::class.java -> MainViewModel(pref, mApplication) as T
             AddStoriesViewModel::class.java -> AddStoriesViewModel(pref) as T
             MapsViewModel::class.java -> MapsViewModel(pref, mApplication) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
